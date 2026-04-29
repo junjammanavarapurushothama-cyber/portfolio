@@ -1,0 +1,692 @@
+/* ============================================
+   style.css — Purushothama Portfolio
+   All styling for the portfolio website
+   ============================================ */
+
+/* ── CSS Variables (change colors here) ── */
+:root {
+  --black:   #040005;
+  --white:   #f0ebe0;
+  --green:   #12b42d;
+  --dim:     #3a3a38;
+  --mid:     #7a7a72;
+  --border:  #1e1e1c;
+  --fs-hero: clamp(4.5rem, 14vw, 12rem);
+  --fs-h2:   clamp(2.2rem, 6vw, 5rem);
+  --fs-h3:   clamp(1.3rem, 3vw, 2rem);
+}
+
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: 'DM Mono', monospace;
+  background: var(--black);
+  color: var(--white);
+  cursor: none;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+/* ============================================
+   CUSTOM CURSOR
+   ============================================ */
+.cursor {
+  width: 12px;
+  height: 12px;
+  background: var(--green);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.08s, width 0.2s, height 0.2s, background 0.2s;
+}
+
+.cursor.big {
+  width: 42px;
+  height: 42px;
+  background: transparent;
+  border: 1.5px solid var(--green);
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.4rem 3rem;
+  border-bottom: 1px solid var(--border);
+  background: rgba(8, 8, 8, 0.88);
+  backdrop-filter: blur(12px);
+}
+
+.nav-logo {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 1.4rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.nav-logo span { color: var(--green); }
+
+.nav-links {
+  display: flex;
+  gap: 2.4rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--mid);
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--green); }
+
+/* Hire Me button in nav */
+.nav-cta {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 9px 20px;
+  border: 1px solid var(--green);
+  color: var(--green) !important;
+  border-radius: 2px;
+  transition: background 0.18s, color 0.18s !important;
+}
+
+.nav-cta:hover {
+  background: var(--green);
+  color: var(--black) !important;
+}
+
+/* Mobile hamburger button */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 1.5px;
+  background: var(--white);
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 100px 3rem 3.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-tag {
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 1.2rem;
+  opacity: 0;
+  animation: fadeUp 0.7s 0.2s forwards;
+}
+
+.hero-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: var(--fs-hero);
+  line-height: 0.88;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  opacity: 0;
+  animation: fadeUp 0.7s 0.4s forwards;
+}
+
+.hero-name em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--mid);
+}
+
+.hero-sub {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 2.5rem;
+  opacity: 0;
+  animation: fadeUp 0.7s 0.65s forwards;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.hero-desc {
+  max-width: 380px;
+  font-size: 0.82rem;
+  line-height: 1.7;
+  color: var(--mid);
+  font-style: italic;
+}
+
+.hero-scroll {
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mid);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hero-scroll::before {
+  content: '';
+  width: 40px;
+  height: 1px;
+  background: var(--mid);
+  display: inline-block;
+}
+
+/* Big decorative number in background */
+.hero-bg-num {
+  position: absolute;
+  right: -2rem;
+  bottom: -2rem;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(12rem, 30vw, 26rem);
+  line-height: 1;
+  color: var(--border);
+  user-select: none;
+  pointer-events: none;
+}
+
+/* ============================================
+   SECTION COMMON STYLES
+   ============================================ */
+section {
+  padding: 6rem 3rem;
+  border-top: 1px solid var(--border);
+}
+
+/* Green label above each section title */
+.section-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 3.5rem;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+  max-width: 120px;
+}
+
+.section-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: var(--fs-h2);
+  text-transform: uppercase;
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+}
+
+/* ============================================
+   ABOUT SECTION
+   ============================================ */
+#about .about-grid {
+  display: flex;
+  gap: 5rem;
+  align-items: flex-start;
+  margin-top: 3rem;
+  flex-wrap: wrap;
+}
+
+.about-text {
+  flex: 1;
+  min-width: 260px;
+}
+
+.about-text p {
+  font-size: 0.88rem;
+  line-height: 1.85;
+  color: var(--mid);
+  margin-bottom: 1.2rem;
+}
+
+.about-text p strong {
+  color: var(--white);
+  font-weight: 400;
+}
+
+/* Stats column */
+.about-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-width: 200px;
+}
+
+.stat-item {
+  border-left: 2px solid var(--green);
+  padding-left: 1.2rem;
+}
+
+.stat-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 2.6rem;
+  color: var(--white);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-top: 3px;
+}
+
+/* ============================================
+   SKILLS SECTION
+   ============================================ */
+#skills .skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1px;
+  border: 1px solid var(--border);
+  margin-top: 3rem;
+}
+
+.skill-card {
+  padding: 1.8rem 1.4rem;
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.2s;
+}
+
+/* Green underline animation on hover */
+.skill-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  height: 2px;
+  width: 0;
+  background: var(--green);
+  transition: width 0.35s;
+}
+
+.skill-card:hover { background: var(--border); }
+.skill-card:hover::after { width: 100%; }
+
+.skill-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.7rem;
+}
+
+.skill-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.skill-level {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--mid);
+  text-transform: uppercase;
+}
+
+/* ============================================
+   PROJECTS SECTION
+   ============================================ */
+#projects .projects-list {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 0;
+  border-top: 1px solid var(--border);
+  gap: 2rem;
+  flex-wrap: wrap;
+  cursor: pointer;
+  transition: padding-left 0.25s;
+}
+
+/* Slide right on hover */
+.project-row:hover { padding-left: 1rem; }
+.project-row:hover .proj-num { color: var(--green); }
+.project-row:hover .proj-arrow { opacity: 1; transform: translateX(0); }
+
+.proj-left {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex: 1;
+  min-width: 200px;
+}
+
+.proj-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 300;
+  font-size: 0.85rem;
+  color: var(--dim);
+  transition: color 0.2s;
+  white-space: nowrap;
+}
+
+.proj-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.proj-meta {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  min-width: 160px;
+}
+
+.proj-tag {
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mid);
+  border: 1px solid var(--dim);
+  padding: 3px 9px;
+  border-radius: 2px;
+}
+
+.proj-arrow {
+  font-size: 1.3rem;
+  color: var(--green);
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+/* ============================================
+   CONTACT SECTION
+   ============================================ */
+#contact {
+  text-align: center;
+  padding: 7rem 3rem;
+}
+
+.contact-big {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(3rem, 10vw, 9rem);
+  text-transform: uppercase;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+}
+
+.contact-big .highlight { color: var(--green); }
+
+.contact-tagline {
+  font-size: 0.78rem;
+  color: var(--mid);
+  font-style: italic;
+  margin: 1.5rem auto;
+  max-width: 320px;
+  line-height: 1.7;
+}
+
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 2.5rem;
+}
+
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 13px 28px;
+  border: 1px solid var(--dim);
+  border-radius: 2px;
+  color: var(--mid);
+  transition: all 0.2s;
+}
+
+.contact-link:hover {
+  border-color: var(--green);
+  color: var(--green);
+  background: rgba(18, 180, 45, 0.04);
+}
+
+/* Primary (Email Me) button */
+.contact-link.primary {
+  background: var(--green);
+  color: var(--black);
+  border-color: var(--green);
+}
+
+.contact-link.primary:hover {
+  background: transparent;
+  color: var(--green);
+}
+
+/* Contact form */
+.contact-form {
+  max-width: 560px;
+  margin: 3rem auto 0;
+  text-align: left;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.form-group {
+  flex: 1;
+  min-width: 200px;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mid);
+}
+
+.form-group input,
+.form-group textarea {
+  background: var(--border);
+  border: 1px solid var(--dim);
+  border-radius: 2px;
+  padding: 12px 14px;
+  color: var(--white);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.82rem;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+  resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--green);
+}
+
+.form-group textarea { min-height: 120px; }
+
+.form-submit {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 14px 36px;
+  background: var(--green);
+  color: var(--black);
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: opacity 0.18s;
+  margin-top: 0.5rem;
+}
+
+.form-submit:hover { opacity: 0.85; }
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 1.8rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+footer p {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--mid);
+  text-transform: uppercase;
+}
+
+footer span { color: var(--green); }
+
+.footer-socials {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.footer-socials a {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mid);
+  transition: color 0.18s;
+}
+
+.footer-socials a:hover { color: var(--green); }
+
+/* ============================================
+   SCROLL REVEAL ANIMATION
+   ============================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hero fade-up keyframe */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   RESPONSIVE — MOBILE (max 720px)
+   ============================================ */
+@media (max-width: 720px) {
+  nav { padding: 1.2rem 1.5rem; }
+
+  /* Show hamburger, hide desktop links */
+  .nav-toggle { display: flex; }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    gap: 1.2rem;
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    background: var(--black);
+    border-top: 1px solid var(--border);
+    padding: 1.5rem;
+  }
+
+  /* JS adds this class to show mobile menu */
+  .nav-links.open { display: flex; }
+
+  #hero, section, #contact, footer {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .about-grid { gap: 2.5rem; }
+
+  /* Always show arrow on mobile (no hover) */
+  .proj-arrow { opacity: 1; transform: none; }
+
+  /* Use default cursor on mobile */
+  body { cursor: auto; }
+  .cursor { display: none; }
+}
